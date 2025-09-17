@@ -13,10 +13,25 @@ const app = express();
 
 // Middleware
 app.use(helmet());  // headers will be secured
+
+import cors from "cors";
+
+const allowedOrigins = [
+  "http://localhost:5173",
+  "https://edviron-assessment-gamma.vercel.app"
+];
+
 app.use(cors({
-    origin: "http://localhost:5173",
-    credentials: true,
+  origin: (origin, callback) => {
+    if (!origin) return callback(null, true); // allow Postman, curl, etc.
+    if (allowedOrigins.includes(origin)) {
+      return callback(null, true);
+    }
+    return callback(new Error("Not allowed by CORS"));
+  },
+  credentials: true,
 }));
+
 app.use(express.json({
     limit: "10kb"
 }))
