@@ -14,8 +14,6 @@ const app = express();
 // Middleware
 app.use(helmet());  // headers will be secured
 
-import cors from "cors";
-
 const allowedOrigins = [
   "http://localhost:5173",
   "https://edviron-assessment-gamma.vercel.app"
